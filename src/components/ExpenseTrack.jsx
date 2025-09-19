@@ -13,7 +13,7 @@ export default function ExpenseTrack() {
   const [expenses, setExpenses] = useState(EXPENSES);
   const [itemToEdit, setItemToEdit] = useState(null);
   useEffect(() => {
-    axios.get('http://localhost:3000/api/')
+    axios.get('https://expense-tracker-back-end-vznw.onrender.com/api/')
     .then((response) => {
       setExpenses(response.data) })
     .catch((error) => {console.error("Unable to Fetch");
@@ -26,7 +26,7 @@ export default function ExpenseTrack() {
 
   const addExpense = (title, amount,id) => {
     if (id) {
-      axios.put(`http://localhost:3000/api/${id}`, { title, amount: Number(amount) })
+      axios.put(`https://expense-tracker-back-end-vznw.onrender.com/api/${id}`, { title, amount: Number(amount) })
         .then((res) => {
           const updatedList = expenses.map((exp) =>
             exp._id === id ? res.data : exp
@@ -37,7 +37,7 @@ export default function ExpenseTrack() {
         .catch((err) => console.error("Update error:", err));
     } else {
       // Add new expense
-    axios.post("http://localhost:3000/api/postdata",
+    axios.post("https://expense-tracker-back-end-vznw.onrender.com/api/postdata",
       {title,amount:Number(amount)})
       .then((res)=> setExpenses([...expenses,res.data]))
       .catch((error)=>console.error("Add Error:",error));
@@ -45,7 +45,7 @@ export default function ExpenseTrack() {
   };
 
   const handleDelete = (id) => {
-    axios.delete(`http://localhost:3000/api/${id}`)
+    axios.delete(`https://expense-tracker-back-end-vznw.onrender.com/api/${id}`)
     .then(() => { setExpenses(expenses.filter((exp) => exp._id !== id)) } )
     .catch((Error) => { console.error({ Error: Error.message }) })
   };
